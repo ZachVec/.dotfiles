@@ -1,0 +1,8 @@
+[user]
+	name = vector
+	email = zijiebing@gmail.com
+[alias]
+	clog = log --pretty=format:\"%C(yellow)%h%Creset %ad %C(cyan)[%an]%Creset | %Cgreen%s%Creset %Cred%d%Creset \" --date=short
+	glog = log --all --graph --oneline
+[url "git@github.com:"]
+	insteadOf = https://github.com/
