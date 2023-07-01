@@ -46,7 +46,35 @@ return require('packer').startup(function(use)
         use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
         use { 'voldikss/vim-floaterm' }
 
-        use {'neoclide/coc.nvim', branch = 'release'}
+        -- lsps
+        use {
+            "neovim/nvim-lspconfig",
+            requires = {
+                "williamboman/mason.nvim",
+                "williamboman/mason-lspconfig.nvim",
+            },
+            run = ":MasonUpdate"
+        }
+        use { "j-hui/fidget.nvim", tag = "legacy"}
+                
+
+        -- auto completion
+        use { "L3MON4D3/LuaSnip"}
+        use { "hrsh7th/nvim-cmp", requires = { "hrsh7th/cmp-nvim-lsp", } }
+
+
+        -- Git related
+        use "tpope/vim-fugitive"
+        use "tpope/vim-rhubarb"
+        use "lewis6991/gitsigns.nvim"
+
+        -- Additional plugins
+        use "lukas-reineke/indent-blankline.nvim"  -- Add indentation guides even on blank lines
+        use "numToStr/Comment.nvim"  -- "gc" to comment out regions/lines
+        use "tpope/vim-sleuth" --Detect tabstop and shiftwidth automatically
+        use {"nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable "make" == 1 }
+        
+
 
         -- Automatically set up your configuration after cloning packer.nvim
         -- Put this at the end after all plugins
