@@ -30,18 +30,18 @@ end
 
 require("mason").setup()
 
--- needed lsps.
-local servers = { "clangd", "pyright" }
-require("mason-lspconfig").setup ({
-    ensure_installed = servers,
-})
-
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-for _, lsp in ipairs(servers) do
-    require("lspconfig")[lsp].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    }
+
+-- ensure the servers are installed on first start.
+require("mason-lspconfig").setup ({
+  ensure_installed = require("config.lsp_server").servers,
+})
+
+-- config the lsps
+for server, opts in pairs(require("config.lsp_server").configs) do
+  opts.on_attach = on_attach
+  opts.capabilities = capabilities
+  require("lspconfig")[server].setup(opts)
 end
